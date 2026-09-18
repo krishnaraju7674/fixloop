@@ -1,6 +1,7 @@
 # FixLoop — Close the civic loop
 
-**Live URL:** https://fixloop.vercel.app _(update after first deploy)_
+**Live URL:** https://fixloop-mu.vercel.app
+**Repo:** https://github.com/krishnaraju7674/fixloop
 **Author:** G Krishnam Raju · gkr.7674@gmail.com
 
 A one-page funding pitch for **FixLoop** — a civic issue tracker that closes the loop in public: photo in → auto-routed to the owning department → fix verified by geo-tagged photo → citizen signs off → published to an open ledger.

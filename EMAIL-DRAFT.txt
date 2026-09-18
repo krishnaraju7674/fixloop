@@ -6,7 +6,7 @@ Hi Protofine team,
 I'm G Krishnam Raju, applying for the Frontend Developer Intern role. Here is my
 "Pitch Your Own Idea" submission.
 
-Live URL: https://fixloop.vercel.app   [← confirm after deploy]
+Live URL: https://fixloop-mu.vercel.app
 
 Two lines:
 • My decision-maker is a municipal commissioner / smart-city grant reviewer —
@@ -16,8 +16,7 @@ Two lines:
   30-second demo, then shows the public ledger every closed ticket publishes to.
 
 Write-up (what I built, key decisions, AI failure story):
-https://fixloop.vercel.app  → linked README, or direct:
-https://github.com/<your-username>/fixloop-pitch#readme   [← add repo link]
+https://github.com/krishnaraju7674/fixloop#readme
 
 Walkthrough video: <add Loom/Drive link, 2–4 min>
 Suggested outline: problem (20s) → page walkthrough (90s, do the demo live) →
