@@ -4,7 +4,19 @@
 **Repo:** https://github.com/krishnaraju7674/fixloop
 **Author:** G Krishnam Raju · gkr.7674@gmail.com
 
-A one-page funding pitch for **FixLoop** — a civic issue tracker that closes the loop in public: photo in → auto-routed to the owning department → fix verified by geo-tagged photo → citizen signs off → published to an open ledger.
+A funding pitch for **FixLoop** — a civic issue tracker that closes the loop in public — **backed by a real working application**: every button writes to Postgres, the ledger reads live rows, and every action lands on a tamper-evident, hash-chained audit trail.
+
+## The application (not just a page)
+
+- **Stack:** Vite + React 18 + TypeScript (strict) + Tailwind + Framer Motion on the front; **Supabase Postgres** (project: `fixloop`) with Row Level Security on the back.
+- **Schema:** `reports` (ticket, issue, department, SLA deadline, status, geo-hash, timestamps, citizen confirmation, escalation count) + `events` (kind, detail, **hash**) — one row per action.
+- **Real state machine in the demo:** file report → photo/geo-tag → route (SLA deadline stamped in DB) → fast-forward = SLA breach → **auto-escalation to Zonal Head** (persisted, `escalation_count` incremented) → department fix photo → geo-hash match → the citizen fork: **sign off** (closes + publishes) or **reject** (status `reopened`, department re-flagged, another chain event). Every path is a real DB write; nothing is faked client-side.
+- **Hash-chained audit trail:** a Postgres trigger computes each event's hash as `sha256(previous_hash || kind || report_id || timestamp)`, so the ledger is append-evident by construction — the same idea as Protofine's backend task, applied to civic accountability. The closed ticket renders its actual chain from the DB.
+- **Live ledger:** the resolution ledger on the page reads real rows (polled every 20s), with working filters (all / open / closed — including escalated, reopened, awaiting-sign-off states) and a **median time-to-close computed from real timestamps**. File a ticket in the demo and watch it appear on the ledger.
+
+## Security note
+
+The key in the client bundle is Supabase's **publishable anon key** — designed to be public. The database is protected by **Row Level Security** policies (public read/insert/update for the demo only; no destructive access). No service keys exist in the repo or bundle.
 
 ---
 
@@ -44,9 +56,11 @@ One page, one idea: **FixLoop**, a civic issue tracker whose product is the *clo
 
 **How I caught it:** When I clicked through the deployed preview like a user, tapping **Closed** and **Open** emptied the ledger — zero rows rendered for filters that visibly had matching tickets.
 
-**What I changed:** The bug was a case mismatch between UI state and data (`filter === "closed"` vs `r.status === "Closed"`). I fixed the comparison to be case-insensitive (`r.status.toLowerCase() === filter`) and, more importantly, added a click-through-verification pass to my workflow: every interactive element now gets exercised in the running app before I call it done. A build passing is not the same as a feature working — that distinction cost me one real bug here and would have cost me credibility in front of a reviewer.
+**What I changed:** The bug was a case mismatch between UI state and data (`filter === "closed"` vs `r.status === "Closed"`). I fixed the comparison to be case-insensitive and, more importantly, added a click-through-verification pass to my workflow: every interactive element now gets exercised in the running app before I call it done. A build passing is not the same as a feature working — that distinction cost me one real bug here and would have cost me credibility in front of a reviewer.
 
-A second, smaller case: an early full-page screenshot tool returned an image that looked like the entire hero was duplicated dozens of times down the page. It was convincing enough to send me bug-hunting — until I checked the actual DOM (one `<h1>`, six sections, correct order) and realized the capture tool stitches the page while entrance animations replay. Trusting state over visuals saved a pointless "fix."
+The same discipline caught a second one during the database build: my first version of the demo referenced the ticket ID from a stale closure instead of the insert response — TypeScript never flagged it because the variable existed in scope, but the flow would have updated nothing. I restructured the state to carry the real ticket from the DB response (`rep.ticket`) through every step.
+
+A third, smaller case: an early full-page screenshot tool returned an image that looked like the entire hero was duplicated dozens of times down the page. It was convincing enough to send me bug-hunting — until I checked the actual DOM (one `<h1>`, six sections, correct order) and realized the capture tool stitches the page while entrance animations replay. Trusting state over visuals saved a pointless "fix."
 
 ---
 
