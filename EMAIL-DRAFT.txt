@@ -1,0 +1,38 @@
+To:      careers@protofine.ai
+Subject: Frontend Developer Intern — "Pitch Your Own Idea" submission — G Krishnam Raju
+
+Hi Protofine team,
+
+I'm G Krishnam Raju, applying for the Frontend Developer Intern role. Here is my
+"Pitch Your Own Idea" submission.
+
+Live URL: https://fixloop.vercel.app   [← confirm after deploy]
+
+Two lines:
+• My decision-maker is a municipal commissioner / smart-city grant reviewer —
+  someone who controls pilot budgets and answers publicly for unresolved complaints.
+• The single choice I made to persuade them: make the resolution evidence the hero —
+  the page lets the reviewer play the citizen and sign off a fix in an interactive
+  30-second demo, then shows the public ledger every closed ticket publishes to.
+
+Write-up (what I built, key decisions, AI failure story):
+https://fixloop.vercel.app  → linked README, or direct:
+https://github.com/<your-username>/fixloop-pitch#readme   [← add repo link]
+
+Walkthrough video: <add Loom/Drive link, 2–4 min>
+Suggested outline: problem (20s) → page walkthrough (90s, do the demo live) →
+why the motion exists (30s) → the AI failure story (30s) → the ask (20s).
+
+The idea in one line: cities log millions of civic complaints but can't prove
+closure — FixLoop closes the loop in public (photo in → auto-route → geo-verified
+fix → citizen sign-off → open ledger), pitched as a falsifiable 90-day, one-ward
+pilot.
+
+Built with: Vite + React + TypeScript (strict) + Tailwind + Framer Motion,
+hand-coded, responsive, ~92 KB gzipped.
+
+Happy to walk through anything live.
+
+Thanks,
+G Krishnam Raju
+gkr.7674@gmail.com
